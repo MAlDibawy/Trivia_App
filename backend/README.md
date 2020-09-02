@@ -1,39 +1,34 @@
-# trivia API
+# Full Stack Trivia API Backend
 
-Trivia api is a web applcation that allows users to hold trivia on a regular basis using a website to manage and play the game.
+## Getting Started
 
-The app allows the user to:
+### Installing Dependencies
 
-1) Display questions - both all questions and by category. Questions should show the question, category and difficulty rating by default and can show/hide the answer. 
-2) Delete questions.
-3) Add questions and require that they include question and answer text.
-4) Search for questions based on a text query string.
-5) Play the quiz game, randomizing either all questions or within a specific category.
-
-## Getting started
-
-## Installing Dependencies
+#### Python 3.7
 
 Follow instructions to install the latest version of python for your platform in the [python docs](https://docs.python.org/3/using/unix.html#getting-and-installing-the-latest-version-of-python)
 
 #### Virtual Enviornment
-Working within a virtual environment is recommended.
+
+We recommend working within a virtual environment whenever using Python for projects. This keeps your dependencies for each project separate and organaized. Instructions for setting up a virual enviornment for your platform can be found in the [python docs](https://packaging.python.org/guides/installing-using-pip-and-virtual-environments/)
 
 #### PIP Dependencies
 
-navigate to the `/backend` directory and run:
+Once you have your virtual environment setup and running, install dependencies by naviging to the `/backend` directory and running:
 
 ```bash
 pip install -r requirements.txt
 ```
 
-This will install all of the required packages in the `requirements.txt` file.
+This will install all of the required packages we selected within the `requirements.txt` file.
 
-#### key dependencies
+##### Key Dependencies
 
-- FLASK
-- SQLAlchemy
-- Flask-CORS
+- [Flask](http://flask.pocoo.org/)  is a lightweight backend microservices framework. Flask is required to handle requests and responses.
+
+- [SQLAlchemy](https://www.sqlalchemy.org/) is the Python SQL toolkit and ORM we'll use handle the lightweight sqlite database. You'll primarily work in app.py and can reference models.py. 
+
+- [Flask-CORS](https://flask-cors.readthedocs.io/en/latest/#) is the extension we'll use to handle cross origin requests from our frontend server. 
 
 ## Database Setup
 With Postgres running, restore a database using the trivia.psql file provided. From the backend folder in terminal run:
@@ -43,7 +38,7 @@ psql trivia < trivia.psql
 
 ## Running the server
 
-From within the `backend` directory
+From within the `backend` directory first ensure you are working using your created virtual environment.
 
 To run the server, execute:
 
@@ -53,6 +48,9 @@ export FLASK_ENV=development
 flask run
 ```
 
+Setting the `FLASK_ENV` variable to `development` will detect file changes and restart the server automatically.
+
+Setting the `FLASK_APP` variable to `flaskr` directs flask to use the `flaskr` directory and the `__init__.py` file to find the application.
 
 ## Testing
 To run the tests, run
@@ -70,6 +68,9 @@ This project uses NPM to manage software dependencies. from the `frontend` direc
 ```bash
 npm install
 ```
+
+Open [http://localhost:3000](http://localhost:3000) to view it in the browser. The page will reload if you make edits.<br>
+
 
 ## API Reference
 
