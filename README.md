@@ -1,14 +1,14 @@
 # trivia API
 
-Trivia api is a web applcation that allows users to hold trivia on a regular basis using a website to manage and play the game.
+Trivia api is a web app that allows to hold trivia questions and manage to play the game.
 
 The app allows the user to:
 
-1) Display questions - both all questions and by category. Questions should show the question, category and difficulty rating by default and can show/hide the answer. 
+1) Display questions. 
 2) Delete questions.
-3) Add questions and require that they include question and answer text.
-4) Search for questions based on a text query string.
-5) Play the quiz game, randomizing either all questions or within a specific category.
+3) Add questions and their answers.
+4) Search for questions based on substrings.
+5) Play the quiz game.
 
 ## Getting started
 
@@ -21,7 +21,7 @@ Working within a virtual environment is recommended.
 
 #### PIP Dependencies
 
-navigate to the `/backend` directory and run:
+navigate to `/backend` directory and run:
 
 ```bash
 pip install -r requirements.txt
@@ -36,7 +36,8 @@ This will install all of the required packages in the `requirements.txt` file.
 - Flask-CORS
 
 ## Database Setup
-With Postgres running, restore a database using the trivia.psql file provided. From the backend folder in terminal run:
+With Postgres running, restore a database using the trivia.psql file provided. Navigate to `/backend` directory and run:
+
 ```bash
 psql trivia < trivia.psql
 ```
@@ -69,248 +70,6 @@ This project uses NPM to manage software dependencies. from the `frontend` direc
 
 ```bash
 npm install
-```
-
-## API Reference
-
-### Getting Started
-
-* Backend Base URL: `http://127.0.0.1:5000/`
-* Frontend Base URL: `http://127.0.0.1:3000/`
-* Authentication: Authentication or API keys are not used in the project yet.
-
-### Error Handling
-
-Errors are returned in the following json format:
-
-```json
-      {
-        "success": "False",
-        "error": 422,
-        "message": "Unprocessable entity",
-      }
-```
-
-The error codes returned are:
-
-* 400 - bad request
-* 404 - resource not found
-* 422 - unprocessable entity
-* 500 - internal server error
-
-
-### Endpoints
-
-#### Get /categories
-
-- Returns all categories.
-
-- Sample:  `curl http://127.0.0.1:5000/categories`
-
-```json
-    {
-        "categories": {
-            "1": "Science", 
-            "2": "Art", 
-            "3": "Geography", 
-            "4": "History", 
-            "5": "Entertainment", 
-            "6": "Sports"
-        }, 
-        "success": true
-    }
-```
-
-#### Get /questions
-
-- Returns all questions.
-- questions are paginated.
-- pages can be requested by a query string.
-
-- Sample: `curl http://127.0.0.1:5000/questions`<br>
-
-```json
-        {
-    "categories": {
-        "1": "Science",
-        "2": "Art",
-        "3": "Geography",
-        "4": "History",
-        "5": "Entertainment",
-        "6": "Sports"
-    },
-    "questions": [
-        {
-            "answer": "Tom Cruise",
-            "category": 5,
-            "difficulty": 4,
-            "id": 4,
-            "question": "What actor did author Anne Rice first denounce, then praise in the role of her beloved Lestat?"
-        },
-        {
-            "answer": "Maya Angelou",
-            "category": 4,
-            "difficulty": 2,
-            "id": 5,
-            "question": "Whose autobiography is entitled 'I Know Why the Caged Bird Sings'?"
-        },
-        {
-            "answer": "Edward Scissorhands",
-            "category": 5,
-            "difficulty": 3,
-            "id": 6,
-            "question": "What was the title of the 1990 fantasy directed by Tim Burton about a young man with multi-bladed appendages?"
-        },
-        {
-            "answer": "Muhammad Ali",
-            "category": 4,
-            "difficulty": 1,
-            "id": 9,
-            "question": "What boxer's original name is Cassius Clay?"
-        },
-        {
-            "answer": "Brazil",
-            "category": 6,
-            "difficulty": 3,
-            "id": 10,
-            "question": "Which is the only team to play in every soccer World Cup tournament?"
-        },
-        {
-            "answer": "Uruguay",
-            "category": 6,
-            "difficulty": 4,
-            "id": 11,
-            "question": "Which country won the first ever soccer World Cup in 1930?"
-        },
-        {
-            "answer": "George Washington Carver",
-            "category": 4,
-            "difficulty": 2,
-            "id": 12,
-            "question": "Who invented Peanut Butter?"
-        },
-        {
-            "answer": "Lake Victoria",
-            "category": 3,
-            "difficulty": 2,
-            "id": 13,
-            "question": "What is the largest lake in Africa?"
-        },
-        {
-            "answer": "The Palace of Versailles",
-            "category": 3,
-            "difficulty": 3,
-            "id": 14,
-            "question": "In which royal palace would you find the Hall of Mirrors?"
-        },
-        {
-            "answer": "Agra",
-            "category": 3,
-            "difficulty": 2,
-            "id": 15,
-            "question": "The Taj Mahal is located in which Indian city?"
-        }
-    ],
-    "success": true,
-    "total_questions": 19
-}
-```
-
-#### GET /categories/<int:id\>/questions
-
-- Gets questions by a specific category using the id from the url parameter.
-- Sample: `curl http://127.0.0.1:5000/categories/1/questions`<br>
-
-```json
-{
-  "current_category": "Science",
-  "questions": [
-    {
-      "answer": "The Liver",
-      "category": 1,
-      "difficulty": 4,
-      "id": 20,
-      "question": "What is the heaviest organ in the human body?"
-    },
-    {
-      "answer": "Alexander Fleming",
-      "category": 1,
-      "difficulty": 3,
-      "id": 21,
-      "question": "Who discovered penicillin?"
-    },
-    {
-      "answer": "Blood",
-      "category": 1,
-      "difficulty": 4,
-      "id": 22,
-      "question": "Hematology is a branch of medicine involving the study of what?"
-    }
-  ],
-  "success": true,
-  "total_questions": 3
-}
-
-```
-
-#### Post /questions
-
-- creates a new question based on a payload
-
-- sample: `curl http://127.0.0.1:5000/questions -X POST -H "Content-Type: application/json" -d '{
-            "question": "Mohamed Salah plays in which team ?",
-            "answer": "liverpool fc",
-            "difficulty": 1,
-            "category": "6"
-            }'`
-
-```json
-{
-    "success": true,
-    "message": "Question is successfully created" 
-}
-```
-
-#### Post /questions/search
-
-- returns all questions containing search substring
-- sample: `curl http://127.0.0.1:5000/questions/search -X POST -H "Content-Type: application/json" -d '{"searchTerm": "Anne Rice"}'`
-
-```json
-{
-  "questions": [
-    {
-      "answer": "Tom Cruise",
-      "category": 5,
-      "difficulty": 4,
-      "id": 4,
-      "question": "What actor did author Anne Rice first denounce, then praise in the role of her beloved Lestat?"
-    }
-  ],
-  "success": true,
-  "total_questions": 20
-}
-```
-
-#### POST /quizzes
-
-- Takes the category and previous questions in the request.
-- Return random question not in previous questions.
-
-- Sample: `curl http://127.0.0.1:5000/quizzes -X POST -H "Content-Type: application/json" -d '{"previous_questions": [5, 9], "quiz_category": {"type": "History", "id": "4"}}'`
-
-```json
-{
-  "question": {
-    "answer": "George Washington Carver",
-    "category": 4,
-    "difficulty": 2,
-    "id": 12,
-    "question": "Who invented Peanut Butter?"
-  },
-  "success": true
-}
-
 ```
 
 ## Authors
